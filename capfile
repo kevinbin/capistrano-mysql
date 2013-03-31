@@ -1,0 +1,21 @@
+Dir[File.join(File.dirname(__FILE__), 'tasks/*.rb')].sort.each { |task| load task }
+require 'yaml'
+
+default_run_options[:pty] = true
+# logger.level = Logger::INFO
+color_matchers = [
+  { :match => /command finished/,   :color => :hide,  :prio => 10, :prepend => "$$$" },
+  { :match => /executing command/,  :color => :green, :prio => 10, :attribute => :underscore, :timestamp => true },
+  { :match => /^out/,  :color => :magenta,   :prio => 10, :attribute => :blink }
+]
+log_formatter( color_matchers )
+
+set :user, 'root'
+set :password, 'mssroot'
+# set :gateway, '10.0.204.249'
+
+
+
+# set(:mysql_master) {host("config/master_host")}
+# role(:mysql_slave) {host_define("config/slave_hosts")}
+

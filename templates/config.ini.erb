@@ -1,0 +1,167 @@
+[MGM DEFAULT]
+PortNumber=1186
+DataDir=<%=data_dir%>/mgm_data
+
+[NDBD DEFAULT]
+NoOfReplicas=2
+DataDir=<%=data_dir%>/ndb_data
+
+ODirect=1
+# change for only has 32 cores
+MaxNoOfExecutionThreads=28
+RealTimeScheduler=1
+
+#ThreadConfig=ldm={count=8,cpubind=1,2,3,4,5,6,7,8},tc={count=4,cpubind=13,14,15,16},recv={count=4,cpubind=20,21,22,23},send={count=3,cpubind=24,25,26},rep={cpubind=27},main={cpubind=28},io={cpubind=28}
+DataMemory=1G
+IndexMemory=512M
+StringMemory=25
+
+# Transaction Parameters #
+MaxNoOfConcurrentTransactions=10000
+MaxNoOfConcurrentOperations=20000
+
+# Transaction Temporary Storage #
+MaxNoOfConcurrentIndexOperations=16384
+MaxNoOfFiredTriggers=8000
+TransactionBufferMemory=16M
+
+# Scans and buffering #
+MaxNoOfConcurrentScans=500
+MaxNoOfLocalScans=4000
+BatchSizePerLocalScan=512
+LongMessageBuffer=64M
+
+# Logging and Checkpointing #
+NoOfFragmentLogFiles=16
+FragmentLogFileSize=16M
+InitialNoOfOpenFiles=27
+MaxNoOfSavedMessages=25
+NoOfFragmentLogParts=12
+
+
+# Metadata Objects #
+MaxNoOfAttributes=10000
+MaxNoOfTables=4096
+MaxNoOfOrderedIndexes=600
+MaxNoOfUniqueHashIndexes=600
+MaxNoOfTriggers=14336
+MaxAllocate=128M
+
+# Boolean Parameters #
+LockPagesInMainMemory=1
+StopOnError=1
+Diskless=0
+
+# Controlling Timeouts, Intervals, and Disk Paging #
+TimeBetweenWatchDogCheck=6000
+TimeBetweenWatchDogCheckInitial=6000
+StartPartialTimeout=30000
+StartPartitionedTimeout=60000
+# for huge data reload, no timeout
+StartFailureTimeout=0
+HeartbeatIntervalDbDb=20000
+HeartbeatIntervalDbApi=30000
+TimeBetweenLocalCheckpoints=6
+TimeBetweenGlobalCheckpoints=2000
+TransactionInactiveTimeout=0
+TransactionDeadlockDetectionTimeout=20000
+TimeBetweenEpochsTimeout=32000
+#TimeBetweenEpochs=100
+DiskSyncSize=32M
+DiskCheckpointSpeed=50M
+DiskCheckpointSpeedInRestart=100M
+ArbitrationTimeout=10
+
+# Buffering and Logging #
+UndoIndexBuffer=32M
+# map to 32M of UndoIndexBuffer (8 times of default value)
+UndoDataBuffer=128M
+# map to RedoBuffer
+RedoBuffer=256M
+LogLevelStartup=15
+LogLevelShutdown=3
+LogLevelStatistic=0
+LogLevelCheckpoint=0
+LogLevelNodeRestart=0
+LogLevelConnection=0
+LogLevelError=15
+LogLevelCongestion=0
+LogLevelInfo=3
+MemReportFrequency=0
+
+
+### DISK DATA
+SharedGlobalMemory=512M
+DiskPageBufferMemory=4096M
+DiskIOThreadPool=64
+
+# Backup Parameters #
+#BackupDataBufferSize=128M
+#BackupLogBufferSize=32M
+#BackupMemory=160M
+#BackupWriteSize=128M
+#BackupMaxWriteSize=128M
+
+# change for fully utilize the cpu
+MaxBufferedEpochs=5000
+TotalSendBufferMemory=512M
+
+[TCP DEFAULT]
+SendBufferMemory=2M
+ReceiveBufferMemory=2M
+
+
+#[MYSQLD DEFAULT]
+#BatchSize=512
+#BatchByteSize=64K
+#MaxScanBatchSize=2048K
+
+[NDB_MGMD]
+NodeId=1
+HostName=192.168.1.16
+
+
+[NDBD]
+NodeId=10
+HostName=192.168.1.10
+
+[NDBD]
+NodeId=11
+HostName=192.168.1.11
+
+[NDBD]
+NodeId=12
+HostName=192.168.1.12
+
+[NDBD]
+NodeId=13
+HostName=192.168.1.13
+
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]
+[MYSQLD]

@@ -1,0 +1,90 @@
+[client]
+port                           = 3306
+socket                         = /tmp/mysql.sock
+[mysqld]
+user                           = mysql
+# GENERAL #
+default_storage_engine         = ndb
+character-set-server           = utf8
+basedir                        = <%=mysql_basedir%>
+datadir                        = <%=data_dir%>/mysql_data
+socket                         = /tmp/mysql.sock
+pid_file                       = mysql.pid
+
+# NDB #
+ndb-cluster-connection-pool    = 6
+ndbcluster                     = 1
+ndb-use-exact-count            = 0
+ndb-extra-logging              = 1
+ndb-autoincrement-prefetch-sz  = 1024
+ndb_join_pushdown              = 0
+ndb-connectstring              = <%=connectstr%>
+
+max_prepared_stmt_count        = 1048576
+
+# SAFETY #
+max_allowed_packet             = 16M
+max_connect_errors             = 1000000
+skip_name_resolve
+sql_mode                       = STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_AUTO_VALUE_ON_ZERO,NO_ENGINE_SUBSTITUTION,NO_ZERO_DATE,NO_ZERO_IN_DATE,ONLY_FULL_GROUP_BY
+sysdate_is_now                 = 1
+innodb                         = FORCE
+innodb_strict_mode             = 1
+lower-case-table-names         = 1
+
+# BINARY LOGGING #
+# log_bin                        = mysql-bin
+# expire_logs_days               = 14
+# sync_binlog                    = 1
+# binlog_format                  = mixed
+
+# REPLICATION #
+server-id                      = 1
+read_only                      = 0
+skip_slave_start               = 1
+# log_slave_updates              = 1
+# relay_log                      = relay-bin
+# slave_net_timeout              = 60
+# sync_master_info               = 1             #only mysql 5.5
+# sync_relay_log                 = 1             #only mysql 5.5
+# sync_relay_log_info            = 1             #only mysql 5.5
+
+# MySQL 5.5 #
+#rpl_semi_sync_master_enabled  = 1             #enable = 1, disable = 0
+#rpl_semi_sync_master_timeout  = 1000          #in milliseconds <default: 10000>, master only setting
+
+
+# CACHES AND LIMITS #
+tmp_table_size                 = 1G
+max_heap_table_size            = 1G
+query_cache_type               = 0
+query_cache_size               = 0              #do not set over 512MB
+max_connections                = 2000
+thread_cache_size              = 200
+open_files_limit               = 65535
+table_definition_cache         = 4096
+table_open_cache               = 4096
+tmpdir                         = /dev/shm       #Recommend using tmpfs for tmpdir
+read_rnd_buffer_size           = 16M
+join_buffer_size               = 8M
+sort_buffer_size               = 1M
+
+# MyISAM #
+key_buffer_size                = 32M                #Cache MyISAM Indexes Not cache data. Up to 30% of memory if using MyISAM only
+myisam_recover                 = FORCE,BACKUP
+
+# INNODB #
+innodb_flush_method            = O_DIRECT      #SAN: O_DIRECT  local: fdatasync
+innodb_log_files_in_group      = 2
+innodb_log_file_size           = 256M       #64G_RAM+ = 768, 24G_RAM+ = 512, 8G_RAM+ = 256, 2G_RAM+ = 128
+innodb_flush_log_at_trx_commit = 1
+innodb_file_per_table          = 1
+innodb_buffer_pool_size        = 128M         #Often 80%+ of memory is allocated here
+innodb_stats_on_metadata       = 0          #default:on Typically best disabled for more workloads
+innodb_buffer_pool_instances   = 4          #Set to 4+ in MySQL 5.5+
+
+# LOGGING #
+log_error                      = mysql-error.log
+# log_queries_not_using_indexes  = 1
+# slow_query_log                 = 1
+# slow_query_log_file            = mysql-slow.log
